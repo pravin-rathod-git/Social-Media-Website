@@ -14,7 +14,7 @@ dotenv.config()
 
 const port=process.env.PORT || 5000
 app.use(cors({
-    origin:"https://vybesocialmedia.onrender.com",
+    origin:"https://vybegosocial.onrender.com",
     credentials:true
 }))
 app.use(express.json())

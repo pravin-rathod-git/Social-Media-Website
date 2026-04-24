@@ -10,26 +10,40 @@ import loopRouter from "./routes/loop.routes.js"
 import storyRouter from "./routes/story.routes.js"
 import messageRouter from "./routes/message.routes.js"
 import { app, server } from "./socket.js"
+
 dotenv.config()
 
-const port=process.env.PORT || 5000
+const port = process.env.PORT || 5000
+
 app.use(cors({
-    origin:"https://vybegosocial.onrender.com",
-    credentials:true
+    origin: "https://vybegosocial.onrender.com",
+    credentials: true
 }))
+
 app.use(express.json())
 app.use(cookieParser())
 
-app.use("/api/auth",authRouter)
-app.use("/api/user",userRouter)
-app.use("/api/post",postRouter)
-app.use("/api/loop",loopRouter)
-app.use("/api/story",storyRouter)
-app.use("/api/message",messageRouter)
+app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
+app.use("/api/post", postRouter)
+app.use("/api/loop", loopRouter)
+app.use("/api/story", storyRouter)
+app.use("/api/message", messageRouter)
 
 
-server.listen(port , ()=>{
-    connectDb()
-    console.log("server started")
-})
+// ✅ FIXED START SERVER FLOW
+const startServer = async () => {
+    try {
+        await connectDb(); // WAIT for DB
+        console.log("✅ DB connected");
 
+        server.listen(port, () => {
+            console.log("🚀 server started");
+        });
+
+    } catch (error) {
+        console.log("❌ Failed to start server:", error);
+    }
+};
+
+startServer();

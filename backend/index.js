@@ -16,7 +16,7 @@ dotenv.config()
 const port = process.env.PORT || 5000
 
 app.use(cors({
-    origin: "https://vybegosocial.onrender.com",
+    origin: "frontendurl",
     credentials: true
 }))
 
